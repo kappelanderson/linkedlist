@@ -109,10 +109,50 @@ function createLinkedList(){
         }
     }
     function insertAt(value, index){
+        if(index > this.size){
+            return 'Invalid Index'
+        }
+        if(this.size === 0){
+            this.append(value)
+        }
+        else{
+        let currentNode = this.head
+        for(let i = 0; i < this.size || currentNode !== null; i++){
+            if(i === index - 1){
+                let prevNode = currentNode
+                let nextNode = currentNode.next || null
+                let newNode = Node(value)
+                prevNode.next = newNode
+                newNode.next = nextNode
+                this.size++
 
+            }
+            currentNode = currentNode.next
+            
+        }
+    }
     }
     function removeAt(index){
+        if(index > this.size){
+            return 'Invalid Index'
+        }
+        if(this.size === 0){
+            return 'Nothing to remove'
+        }
+        else{
+        let currentNode = this.head
+        for(let i = 0; i < this.size || currentNode !== null; i++){
+            if(i === index - 1){
+                let prevNode = currentNode
+                let nextNode = currentNode.next.next || null
+                prevNode.next = nextNode
+                this.size--
 
+            }
+            currentNode = currentNode.next
+            
+        }
+    }
     }
     return {
         tail,
@@ -126,6 +166,8 @@ function createLinkedList(){
         contains,
         find,
         toString,
+        insertAt,
+        removeAt
     }
 }
 
@@ -134,20 +176,3 @@ function Node(value = null, next = null){
         value, next
     }
 }
-let linkedlist = createLinkedList()
-
-
-linkedlist.append(Node(0))
-linkedlist.append(Node(1))
-linkedlist.append(Node(2))
-linkedlist.append(Node(3))
-linkedlist.append(Node(4))
-linkedlist.append(Node(5))
-linkedlist.append(Node(6))
-linkedlist.append(Node(7))
-
-
-console.log(linkedlist.size)
-console.log(linkedlist.tail)
-console.log(linkedlist.toString())
-//console.log(linkedlist.at(8))
