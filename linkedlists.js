@@ -20,7 +20,7 @@ function createLinkedList(){
     }
     function prepend(value){
         if(this.size === 0){
-            append(value)
+            this.append(value)
         }
         else{
             let oldHead = head
@@ -32,6 +32,7 @@ function createLinkedList(){
 
     function at(index){
         if(index > this.size){
+            console.log('INDEX: ' + index + ' SIZE ' + this.size)
             return -1
         }
         else{
@@ -45,8 +46,10 @@ function createLinkedList(){
     }
     }
     function pop(){
-        let secondToLast = at(this.size - 1)
-        console.log('secondToLast '  + secondToLast)
+        console.log(this.size)
+        let secondToLast = this.at(this.size - 1)
+        console.log(this.size)
+        console.log('secondToLast '  + secondToLast.value)
         let oldtail = this.tail
         this.tail = secondToLast
         this.tail.next = null
@@ -58,12 +61,52 @@ function createLinkedList(){
 
     function contains(value){
 
-    }
-    function find(value){
+        if(this.size == 0){
+            return false
+        }
+        else{
+            let currentNode = this.head
+            while(currentNode !== null){
+                if(currentNode.value === value){
+                    return true
+                }
+                currentNode = currentNode.next
+            }
+            return false
+
+        }
 
     }
+    function find(value){
+        if(this.size === 0){
+            return -1
+        }
+        else{
+        
+        let currentNode = this.head
+        for(let i = 0; i < this.size || currentNode !== null; i++){
+            if(currentNode.value === value){
+                return i
+            }
+            currentNode = currentNode.next
+        }
+        return -1
+    }
+    }
     function toString(){
-        return this.head
+        if(this.size == 0){
+            return ''
+        }
+        else{
+            let nodeValue = []
+            let currentNode = this.head
+            while(currentNode !== null){
+                nodeValue.push(currentNode.value)
+                currentNode = currentNode.next
+            }
+            return nodeValue.join(' -> ')
+
+        }
     }
     function insertAt(value, index){
 
@@ -80,6 +123,9 @@ function createLinkedList(){
         toString,
         at,
         pop,
+        contains,
+        find,
+        toString,
     }
 }
 
@@ -101,7 +147,6 @@ linkedlist.append(Node(6))
 linkedlist.append(Node(7))
 
 
-console.log(linkedlist.pop())
 console.log(linkedlist.size)
 console.log(linkedlist.tail)
 console.log(linkedlist.toString())
